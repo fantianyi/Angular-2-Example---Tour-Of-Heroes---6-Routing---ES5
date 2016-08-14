@@ -3,10 +3,12 @@
     ng.core.Component({
       selector: 'my-dashboard',
       templateUrl: 'app/dashboard.component.html',
+      styleUrls: ['app/dashboard.component.css'],
       providers: [ app.HeroService ]
     })
     .Class({
-        constructor: [ app.HeroService, function(heroService) {
+        constructor: [ ng.router.Router, app.HeroService, function(router, heroService) {
+          this.router = router;
           this.heroService = heroService;
         }],
         ngOnInit: function() {
@@ -14,9 +16,9 @@
             .then(heroes => this.heroes = heroes.slice(1, 5));
         },
         gotoDetail: function(hero) {
-          // TODO: How use 'ng.router.Router' in ES5?
-          //let link = ['/detail', hero.id];
-          //this.router.navigate(link);
+          // TODO: How use 'ng.router.navigate' in ES5?
+          let link = ['/detail', hero.id];
+          this.router.navigate(link);
         }
     });
 })(window.app || (window.app = {}));

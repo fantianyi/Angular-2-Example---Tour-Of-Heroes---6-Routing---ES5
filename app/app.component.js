@@ -2,15 +2,8 @@
   app.AppComponent =
     ng.core.Component({
       selector: 'my-app',
-      template: `
-        <h1>{{title}}</h1>
-        <nav>
-          <a routerLink="/dashboard">Dashboard</a>
-          <a routerLink="/heroes">Heroes</a>
-          <a routerLink="/detail">Detail</a>
-        </nav>
-        <router-outlet></router-outlet>
-      `,
+      templateUrl: 'app/app.component.html',
+      styleUrls: [ 'app/app.component.css' ],
       directives: [ ng.router.ROUTER_DIRECTIVES ],
       providers: [app.HeroService]
     })

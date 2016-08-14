@@ -3,15 +3,22 @@
     ng.core.Component({
       selector: 'my-hero-detail',
       templateUrl: 'app/hero-detail.component.html',
+      styleUrls: [ 'app/hero-detail.component.css' ],
       providers: [ app.HeroService ]
     })
     .Class({
-        constructor: [ app.HeroService, function(heroService) {
+        constructor: [ ng.router.ActivatedRoute, app.HeroService, function(activatedRoute, heroService) {
+          this.activatedRoute = activatedRoute;
           this.heroService = heroService;
           this.hero = null;
         }],
         ngOnInit: function() {
-          this.heroService.getHero(11).then(hero => this.hero = hero);
+          // TODO: How use '=>' in ES5?
+          this.activatedRoute.params.forEach((params) => {
+            let id = +params['id'];
+            this.heroService.getHero(id)
+              .then(hero => this.hero = hero);
+          });
         },
         goBack: function() {
           window.history.back();
